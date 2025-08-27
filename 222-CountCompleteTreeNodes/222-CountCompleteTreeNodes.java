@@ -1,4 +1,4 @@
-// Last updated: 27/8/2025, 7:50:32 am
+// Last updated: 27/8/2025, 7:54:09 am
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,66 +15,36 @@
  * }
  */
 class Solution {
-    public int amountOfTime(TreeNode root, int start) {
-        HashMap<TreeNode, TreeNode> mpp = new HashMap<>();
-        TreeNode target = bfsToMapParents(root, mpp, start);
-        int maxi = findMaxDistance(mpp, target);
-        return maxi;
-    }
-    private TreeNode bfsToMapParents(TreeNode root, HashMap<TreeNode, TreeNode> mpp, int start) {
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        TreeNode res = new TreeNode(-1);
-
-        while (!q.isEmpty()) {
-            TreeNode node = q.poll();
-            if (node.val == start) res = node;
-            if (node.left != null) {
-                mpp.put(node.left, node);
-                q.offer(node.left);
-            }
-            if (node.right != null) {
-                mpp.put(node.right, node);
-                q.offer(node.right);
-            }
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
         }
-        return res;
-    }
-
-    private int findMaxDistance(HashMap<TreeNode, TreeNode> mpp, TreeNode target) {
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(target);
-        HashMap<TreeNode, Integer> vis = new HashMap<>();
-        vis.put(target, 1);
-        int maxi = 0;
-
-        while (!q.isEmpty()) {
-            int size = q.size();
-            int fl = 0;
-
-            for (int i = 0; i < size; i++) {
-                TreeNode node = q.poll();
-
-                if (node.left != null && vis.get(node.left) == null) {
-                    fl = 1;
-                    vis.put(node.left, 1);
-                    q.offer(node.left);
-                }
-
-                if (node.right != null && vis.get(node.right) == null) {
-                    fl = 1;
-                    vis.put(node.right, 1);
-                    q.offer(node.right);
-                }
-                if (mpp.get(node) != null && vis.get(mpp.get(node)) == null) {
-                    fl = 1;
-                    vis.put(mpp.get(node), 1);
-                    q.offer(mpp.get(node));
-                }
-            }
-            // Increment max distance if any node was burned
-            if (fl == 1) maxi++;
+        int lh = findHeightLeft(root);
+        int rh = findHeightRight(root);
+        if (lh == rh) {
+            return (1 << lh) - 1; 
         }
-        return maxi;
+     
+        return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+    
+
+    private int findHeightLeft(TreeNode node) {
+        int height = 0;
+ 
+        while (node != null) {
+            height++;
+            node = node.left;
+        }
+        return height;
+    }
+    private int findHeightRight(TreeNode node) {
+        int height = 0;
+ 
+        while (node != null) {
+            height++;
+            node = node.right;
+        }
+        return height;
     }
 }

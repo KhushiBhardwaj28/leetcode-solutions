@@ -1,32 +1,66 @@
-// Last updated: 28/8/2025, 11:21:07 am
+// Last updated: 28/8/2025, 12:03:11 pm
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<String, List<String>> map = new HashMap<>();
-        for(int i = 0; i<strs.length; i++){
-            String key = GetKey(strs[i]);
-            if(!map.containsKey(key)){
-                map.put(key, new ArrayList<>());
-                
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        Queue<VerticalPair> q = new LinkedList<>();
+        TreeMap<Integer, List<VerticalPair>> map = new TreeMap<>();
+        q.add(new VerticalPair(root, 0, 0));
+        while(!q.isEmpty()){
+            VerticalPair vp = q.poll();
+            if(!map.containsKey(vp.v)){
+                map.put(vp.v, new ArrayList<>());
             }
-            map.get(key).add(strs[i]);
+            map.get(vp.v).add(vp);
+            if(vp.node.left != null){
+                q.add(new VerticalPair(vp.node.left, vp.l+1, vp.v-1));
+            }
+            if(vp.node.right != null){
+                q.add(new VerticalPair(vp.node.right, vp.l+1, vp.v+1));
+            }
         }
-        List<List<String>> ll =new ArrayList<>();
-        for(String key: map.keySet()){
-            ll.add(map.get(key));
-        }
-        return ll;
-    }
-    public static String GetKey(String s){
-        int[] freq = new int[26];
-        for(int i = 0; i<s.length(); i++){
-            char ch = s.charAt(i);
-            freq[ch - 'a']++;
-        }
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i<freq.length; i++){
-            sb.append(freq[i]+ " ");
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int key: map.keySet()){
+            List<VerticalPair> ll = map.get(key);
+            Collections.sort(ll, new Comparator<VerticalPair>(){
+                @Override
+                public int compare(VerticalPair o1, VerticalPair o2){
+                    if(o1.l == o2.l){
+                        return o1.node.val-o2.node.val;
+                    }
+                    return 0;
+                }
+            });
 
+            List<Integer> list = new ArrayList<>();
+            for(VerticalPair v: ll){
+                list.add(v.node.val);
+            }
+            ans.add(list);
         }
-        return sb.toString();
+        return ans;
+    }
+    class VerticalPair{
+        TreeNode node;
+        int l; //row
+        int v; //col
+        public VerticalPair(TreeNode node, int l, int v){
+            this.l = l;
+            this.v = v;
+            this.node = node;
+        }
     }
 }

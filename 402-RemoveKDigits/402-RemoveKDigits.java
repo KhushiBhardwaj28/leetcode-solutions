@@ -1,20 +1,35 @@
-// Last updated: 2/9/2025, 7:57:25 pm
+// Last updated: 2/9/2025, 8:15:18 pm
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    public int[] nextGreaterElements(int[] nums) {
-        int n = nums.length;
-        int[] ans = new int[n];
-        Arrays.fill(ans, -1);
-       
-        for(int i = 0; i < n; i++) {
-            int currEle = nums[i];
-            for(int j = 1; j < n; j++) {
-                int ind = (j + i) % n;
-                if(nums[ind] > currEle) {
-                    ans[i] = nums[ind];
-                    break;
-                }    
-            }
+    Integer prev = null;
+    int minDis = Integer.MAX_VALUE;
+    public int minDiffInBST(TreeNode root) {
+        inorder(root);
+        return minDis;
+    }
+    private void inorder(TreeNode node){
+        if(node == null){
+            return;
         }
-        return ans;
+        inorder(node.left);
+        if(prev != null){
+            minDis = Math.min(minDis, node.val - prev);
+        }
+        prev = node.val;
+        inorder(node.right);
     }
 }

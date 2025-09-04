@@ -1,23 +1,30 @@
-// Last updated: 4/9/2025, 11:17:18 am
+// Last updated: 4/9/2025, 11:38:31 am
 class Solution {
-    public int maxUncrossedLines(int[] nums1, int[] nums2) {
-        return LCSBU(nums1, nums2);
+    public int change(int amount, int[] coins) {
+        int[][] dp = new int[amount+1][coins.length];
+        for(int[] a : dp){
+            Arrays.fill(a, -1);
+        }
+        return CoinChange(amount, coins, 0, dp);
     }
-    public static int LCSBU(int[] s1, int[] s2) {
-	        int[][] dp=new int[s1.length+1][s2.length+1];
-	        for(int i=1;i<dp.length;i++){
-	        for(int j=1;j<dp[0].length;j++){
-	            int ans=0;
-	            if(s1[i-1] == s2[j-1]){
-	                ans=1+dp[i-1][j-1];
-	            }else{
-	                int f=dp[i-1][j];
-	                int s=dp[i][j-1];
-	                ans=Math.max(f,s);
-	            }
-	            dp[i][j]=ans;
-	          }
-	       }
-	       return dp[dp.length-1][dp[0].length-1];
-	}
+    public static int CoinChange(int amount, int[] coins, int i, int[][] dp){
+        if(amount == 0){
+            return 1;
+        }
+        if(i == coins.length){
+            return 0;
+        }
+        if(dp[amount][i] != -1){
+            return dp[amount][i];
+        }
+        
+        int inc = 0;
+        int exc = 0;
+
+        if(amount>=coins[i]){
+            inc = CoinChange(amount - coins[i],coins, i, dp);
+        }
+        exc = CoinChange(amount, coins, i+1, dp);
+        return dp[amount][i] = inc + exc;
+    }
 }

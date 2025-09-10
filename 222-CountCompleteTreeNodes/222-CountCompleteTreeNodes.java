@@ -1,4 +1,4 @@
-// Last updated: 27/8/2025, 7:54:09 am
+// Last updated: 10/9/2025, 7:49:28 am
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,35 +16,20 @@
  */
 class Solution {
     public int countNodes(TreeNode root) {
-        if (root == null) {
+        if(root == null){
             return 0;
-        }
-        int lh = findHeightLeft(root);
-        int rh = findHeightRight(root);
-        if (lh == rh) {
-            return (1 << lh) - 1; 
-        }
-     
-        return 1 + countNodes(root.left) + countNodes(root.right);
-    }
-    
 
-    private int findHeightLeft(TreeNode node) {
-        int height = 0;
- 
-        while (node != null) {
-            height++;
-            node = node.left;
         }
-        return height;
+        int[] count = {0};
+        inorder(root, count);
+        return count[0];
     }
-    private int findHeightRight(TreeNode node) {
-        int height = 0;
- 
-        while (node != null) {
-            height++;
-            node = node.right;
+    public void inorder(TreeNode root, int[] count){
+        if(root == null){
+            return;
         }
-        return height;
+        count[0]++;
+        inorder(root.left, count);
+        inorder(root.right, count);
     }
 }

@@ -1,0 +1,12 @@
+// Last updated: 26/9/2025, 11:37:22 am
+class Solution {
+    public int rangeBitwiseAnd(int left, int right) {
+        int count = 0;
+        while(left < right){
+            left = left >> 1;
+            right = right >> 1;
+            count++;
+        }
+        return left << count;
+    }
+}

@@ -1,7 +1,7 @@
-// Last updated: 27/9/2025, 2:57:16 pm
+// Last updated: 27/9/2025, 3:04:12 pm
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        Arrays.sort(piles);
+        // Arrays.sort(piles);
         int max = Integer.MIN_VALUE;
         for(int i = 0; i<piles.length; i++){
             max = Math.max(max, piles[i]);

@@ -1,49 +1,8 @@
-// Last updated: 26/9/2025, 11:08:02 pm
+// Last updated: 27/9/2025, 1:13:43 pm
 class Solution {
-    public int[] searchRange(int[] nums, int target) {
-        int arr[] = new int[2];
-        arr[0] = first_occur(nums.length,target,nums);
-        arr[1] = last_occur(nums.length,target,nums);
-        return arr;
-        
+    public int maximumProduct(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        return Math.max(nums[n-1]*nums[n-2]*nums[n-3] , nums[0]*nums[1]*nums[n-1]);
     }
-    public int last_occur(int n, int key, int[] v){
-        int start = 0;
-        int end = n - 1;
-        int res = -1;
-
-        while (start <= end) {
-          int mid = start + (end - start) / 2;
-          if (v[mid] == key) {
-            res = mid;
-            start = mid + 1;
-
-          } else if (key < v[mid]) {
-            end = mid - 1;
-          } else {
-            start = mid + 1;
-          }
-        }
-        return res;
-    }
-    public int first_occur(int n, int key, int[] v){
-        int start = 0;
-        int end = n - 1;
-        int res = -1;
-
-        while (start <= end) {
-          int mid = start + (end - start) / 2;
-          if (v[mid] == key) {
-            res = mid;
-            end = mid - 1;
-
-          } else if (v[mid] < key) {
-            start = mid+1;
-          } else {
-            end = mid-1;
-          }
-        }
-        return res;
-    }
-
 }

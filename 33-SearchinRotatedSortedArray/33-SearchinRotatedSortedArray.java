@@ -1,20 +1,33 @@
-// Last updated: 27/9/2025, 2:40:17 pm
+// Last updated: 27/9/2025, 2:57:16 pm
 class Solution {
-    public String frequencySort(String s) {
-        HashMap<Character,Integer> map=new HashMap<>();
-        for(char ch:s.toCharArray()){
-            map.put(ch,map.getOrDefault(ch,0)+1);
+    public int minEatingSpeed(int[] piles, int h) {
+        Arrays.sort(piles);
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i<piles.length; i++){
+            max = Math.max(max, piles[i]);
         }
-        PriorityQueue<Character> pq=new PriorityQueue<>((a,b)->map.get(b)-map.get(a));
-        pq.addAll(map.keySet());
-        StringBuilder sb=new StringBuilder();
-        while(!pq.isEmpty()){
-            char ch=pq.poll();
-            int fre=map.get(ch);
-            while(fre-->0){
-                sb.append(ch);
+        int lo = 1;
+        int hi = max;
+        int ans = 0;
+        while(lo<=hi){
+            int mid = lo+(hi-lo)/2;
+            if(isPossible(piles, h, mid)){
+                ans=mid;
+                hi=mid-1;
+            }else{
+                lo = mid+1;
             }
         }
-        return sb.toString();
+        return ans;
+    }
+    public static boolean isPossible(int[] piles, int hr, int mid){
+        int h=0;
+        for(int i=0;i<piles.length; i++){
+            h += (piles[i]+mid-1)/mid;
+            if(h > hr){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -1,31 +1,25 @@
-// Last updated: 27/9/2025, 1:42:23 pm
+// Last updated: 27/9/2025, 2:23:55 pm
 class Solution {
-    public int search(int[] nums, int target) {
-        int lo = 0;
-        int hi = nums.length-1;
+    public String frequencySort(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
         
-        while(lo<=hi){
-            int mid = lo+(hi-lo)/2;
-            if(nums[mid] == target){
-                return mid;
-            }
-
-            if(nums[lo]<=nums[mid]){
-                if(nums[lo]<=target && target<=nums[mid]){
-                    hi = mid - 1;
-                }else{
-                    lo = mid+1;
-                }
-            }
-            else{
-                if(nums[mid]<=target && target<=nums[hi]){
-                    lo = mid + 1;
-                }else{
-                    hi = mid-1;
-                }
-            }
-        
+        for(int i = 0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0)+1);
         }
-        return -1;
+
+        ArrayList<Map.Entry<Character, Integer>> ll = new ArrayList<>(map.entrySet());
+        ll.sort((a,b)->b.getValue() - a.getValue());
+        StringBuilder sb = new StringBuilder();
+        for(int i =0; i<ll.size(); i++){
+            char ch = ll.get(i).getKey();
+            int freq = ll.get(i).getValue();
+            while(freq-->0){
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
     }
+
+   
 }

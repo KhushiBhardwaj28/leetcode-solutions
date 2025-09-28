@@ -1,26 +1,7 @@
-// Last updated: 28/9/2025, 11:38:02 am
+// Last updated: 28/9/2025, 11:59:13 am
 class Solution {
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int i = m-1;
-        int j = n-1;
-        int k = m+n-1;
-        while(i>=0 && j>=0){
-            if(nums1[i] <= nums2[j]){
-                nums1[k] = nums2[j];
-                k--;
-                j--; 
-            }
-            else{
-                nums1[k] = nums1[i];
-                k--;
-                i--;
-            }
-        }
-        while(j>=0){
-            nums1[k] = nums2[j];
-            k--;
-            j--;  
-        }
-        
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length-k];
     }
 }

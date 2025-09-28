@@ -1,4 +1,4 @@
-// Last updated: 28/9/2025, 12:40:41 pm
+// Last updated: 28/9/2025, 12:40:58 pm
 class Solution {
     public boolean isPerfectSquare(int num) {
         if(num<2){

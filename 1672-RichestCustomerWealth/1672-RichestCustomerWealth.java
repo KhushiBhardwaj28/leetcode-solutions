@@ -1,14 +1,19 @@
-// Last updated: 29/9/2025, 1:18:34 pm
+// Last updated: 29/9/2025, 1:25:29 pm
 class Solution {
-    public int maximumWealth(int[][] accounts) {
-        int maxwealth = 0;
-        for(int i = 0; i<accounts.length; i++){
-            int wealth = 0;
-            for(int j = 0; j<accounts[0].length; j++){
-                wealth += accounts[i][j];
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int row = 0;
+        int col = matrix[0].length-1;
+        while(row<matrix.length && col>=0){
+            if(matrix[row][col] == target){
+                return true;
             }
-            maxwealth = Math.max(maxwealth, wealth);
+            else if(matrix[row][col]>target){
+                col--;
+
+            }else{
+                row++;
+            }
         }
-        return maxwealth;
+        return false;
     }
 }

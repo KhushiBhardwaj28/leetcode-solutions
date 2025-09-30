@@ -1,4 +1,4 @@
-// Last updated: 30/9/2025, 11:21:30 am
+// Last updated: 30/9/2025, 11:21:46 am
 class Solution {
     public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
         int n = nums1.length;

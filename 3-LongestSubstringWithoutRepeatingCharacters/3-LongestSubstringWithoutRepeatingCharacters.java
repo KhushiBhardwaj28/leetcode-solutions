@@ -1,25 +1,18 @@
-// Last updated: 30/9/2025, 10:58:18 am
+// Last updated: 30/9/2025, 11:08:09 am
 class Solution {
-    public List<List<Integer>> shiftGrid(int[][] grid, int k) {
-        List<List<Integer>> ll = new ArrayList<>();
-        int m = grid.length;
-        int n = grid[0].length;
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        int len = original.length;
+        if(m*n!= len){
+            return new int[0][0];
+        }
         int[][] ans = new int[m][n];
+        int idx = 0;
         for(int i = 0; i<m; i++){
             for(int j = 0; j<n; j++){
-                int idx = ((i*n)+j+k) % (m*n);
-                int row = idx/n;
-                int col = idx%n;
-                ans[row][col] = grid[i][j];
+                ans[i][j] = original[idx];
+                idx++;
             }
         }
-        for(int i = 0; i<m; i++){
-            List<Integer> l = new ArrayList<>();
-            for(int j = 0; j<n; j++){
-                l.add(ans[i][j]);
-            }
-            ll.add(l);
-        }
-        return ll;
+        return ans;
     }
 }

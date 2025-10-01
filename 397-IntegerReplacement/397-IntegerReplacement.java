@@ -1,22 +1,30 @@
-// Last updated: 1/10/2025, 2:38:44 pm
+// Last updated: 1/10/2025, 3:16:16 pm
 class Solution {
-    public int integerReplacement(int n) {
-      long num=n;
-        int count=0;
-        while(num>1){
-            if(num%2==0){
-                num=num/2;
-            }
-            else{
-                if(num == 3 || num%4==1){
-                    num--;
+    public boolean lemonadeChange(int[] bills) {
+        int five = 0;
+        int ten = 0;
+        for(int amount : bills){
+            if(amount == 5){
+                five++;
+            }else if(amount == 10){
+                if(five>0){
+                    five--;
+                    ten++;
+                }else{
+                    return false;
                 }
-                else{
-                    num++;
+            }else{
+                if(five>0 && ten>0){
+                    five--;
+                    ten--;
+                }else if(five>2){
+                    five -= 3;
+                }else{
+                    return false;
                 }
             }
-            count++;
         }
-        return count;
+        return true;
+
     }
 }

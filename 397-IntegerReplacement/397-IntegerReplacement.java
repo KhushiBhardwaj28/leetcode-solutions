@@ -1,4 +1,4 @@
-// Last updated: 1/10/2025, 2:02:52 pm
+// Last updated: 1/10/2025, 2:08:02 pm
 class Solution {
     public int integerReplacement(int n) {
       long num=n;
@@ -8,7 +8,7 @@ class Solution {
                 num=num/2;
             }
             else{
-                if((num==3) || num%4==1){
+                if(num == 3 || num%4==1){
                     num--;
                 }
                 else{

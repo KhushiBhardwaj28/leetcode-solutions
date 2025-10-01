@@ -1,4 +1,4 @@
-// Last updated: 1/10/2025, 2:08:02 pm
+// Last updated: 1/10/2025, 2:38:44 pm
 class Solution {
     public int integerReplacement(int n) {
       long num=n;

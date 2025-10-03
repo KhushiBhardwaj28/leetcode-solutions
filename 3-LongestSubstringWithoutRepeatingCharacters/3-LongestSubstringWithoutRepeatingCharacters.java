@@ -1,4 +1,4 @@
-// Last updated: 3/10/2025, 12:45:41 pm
+// Last updated: 3/10/2025, 12:48:58 pm
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         int l = 0;
@@ -8,7 +8,7 @@ class Solution {
         Arrays.fill(hash,-1);
         while(r<s.length()){
             if(hash[s.charAt(r)]>=l){
-                l = Math.max(hash[s.charAt(r)]+1,l);
+                l =hash[s.charAt(r)]+1;
             }
             int len = r-l+1;
             maxLen = Math.max(len,maxLen);

@@ -1,20 +1,10 @@
-// Last updated: 6/10/2025, 10:28:00 am
+// Last updated: 6/10/2025, 10:30:13 am
 class Solution {
     public int fib(int n) {
         int a =0, b=1;
-        if(n==0){
-            return 0;
+        if(n==0 || n==1){
+            return n;
         }
-        else if(n==1){
-            return 1;
-        }
-        else{
-            for(int i =2; i<=n; i++){
-                int c = a+b;
-                a = b;
-                b = c;
-            }
-            return b;
-        }
+        return fib(n-1)+fib(n-2);
     }
 }

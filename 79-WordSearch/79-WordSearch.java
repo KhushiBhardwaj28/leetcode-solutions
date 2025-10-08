@@ -1,4 +1,4 @@
-// Last updated: 8/10/2025, 11:36:24 am
+// Last updated: 8/10/2025, 11:36:38 am
 class Solution {
     public boolean exist(char[][] board, String word) {
         boolean visited[][] = new boolean[board.length][board[0].length];

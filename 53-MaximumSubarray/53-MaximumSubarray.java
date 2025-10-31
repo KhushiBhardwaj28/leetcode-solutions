@@ -1,36 +1,29 @@
-// Last updated: 31/10/2025, 1:43:48 pm
-import java.util.*;
-
+// Last updated: 31/10/2025, 1:45:38 pm
 class Solution {
-    public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> result = new ArrayList<>();
-        
-        int n = p.length();
-        int m = s.length();
-        
-        if (m < n) return result; // edge case
-        
-        int[] pFreq = new int[26];
-        int[] sFreq = new int[26];
-        for (int i = 0; i < n; i++) {
-            pFreq[p.charAt(i) - 'a']++;
+    public boolean checkInclusion(String s1, String s2) {
+        int n=s1.length();
+        int m=s2.length();
+        int[] s1_fre=new int[26];
+        int[] s2_fre=new int[26];
+        for(int i=0;i<n;i++){
+            s1_fre[s1.charAt(i)-'a']++;
         }
-        
-        int i = 0;
-        for (int j = 0; j < m; j++) {  
-            sFreq[s.charAt(j) - 'a']++;
-            
-            // shrink window if size > n
-            if (j - i + 1 > n) {
-                sFreq[s.charAt(i) - 'a']--;
+        int i=0;
+        int j=0;
+        while(j<m){
+            s2_fre[s2.charAt(j)-'a']++;
+
+            while((j-i+1)>n){ //shrink the window 
+                s2_fre[s2.charAt(i)-'a']--;
                 i++;
             }
-            // freq matches → record index
-            if (j - i + 1 == n && Arrays.equals(pFreq, sFreq)) {
-                result.add(i);
+             // Check if the current window's frequency matches s1's frequency
+            if (Arrays.equals(s1_fre, s2_fre)) {
+                return true;
             }
+            j++;
+
         }
-        
-        return result;
+        return false;
     }
 }

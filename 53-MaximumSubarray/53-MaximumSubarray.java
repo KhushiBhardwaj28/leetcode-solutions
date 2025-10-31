@@ -1,4 +1,4 @@
-// Last updated: 31/10/2025, 12:55:03 pm
+// Last updated: 31/10/2025, 1:36:12 pm
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -10,22 +10,18 @@
  * }
  */
 class Solution {
-    public boolean isPalindrome(ListNode head) {
-        Stack<Integer> st = new Stack<>();
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null)return head;
         ListNode temp = head;
         while (temp != null) {
-            st.push(temp.val);
-            temp = temp.next;
-        }
-        temp = head;
-        while (temp != null) {
-            if (temp.val != st.peek()) {
-                return false;
+            if (temp.next != null && temp.val == temp.next.val) {
+                temp.next = temp.next.next;
             }
-            st.pop();
-            temp = temp.next;
+            else{
+                temp = temp.next;
+            }
         }
-        return true;
-    
+
+        return head;
     }
 }

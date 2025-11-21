@@ -1,4 +1,4 @@
-// Last updated: 21/11/2025, 11:42:33 am
+// Last updated: 21/11/2025, 11:59:39 am
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,14 +15,25 @@
  * }
  */
 class Solution {
-    public boolean isSameTree(TreeNode p, TreeNode q) {
-        if(p==null && q==null){
-            return true;
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans= new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root == null){
+            return ans;
         }
-        if(p==null || q== null || p.val != q.val){
-            return false;
-        }
-        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+        q.add(root);
+        while(!q.isEmpty()){
+            List<Integer> level = new ArrayList<>();
+            int n = q.size();
+            for(int i = 0; i<n; i++){
+                TreeNode node = q.poll();
+                level.add(node.val);
+                if(node.left != null) q.add(node.left);
+                if(node.right != null) q.add(node.right);
 
+            }
+            ans.add(level);
+        }
+        return ans;
     }
 }

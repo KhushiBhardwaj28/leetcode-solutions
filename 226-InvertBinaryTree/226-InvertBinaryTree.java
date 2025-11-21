@@ -1,30 +1,31 @@
-// Last updated: 21/11/2025, 12:29:10 pm
+// Last updated: 21/11/2025, 12:30:33 pm
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ *     TreeNode(int x) { val = x; }
  * }
  */
 class Solution {
-    public TreeNode invertTree(TreeNode root) {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(root == null){
             return null;
         }
-        
-        TreeNode temp = root.left;
-        root.left = root.right;
-        root.right = temp;
-        invertTree(root.left);
-        invertTree(root.right);
-        return root;
+        if(root == p || root == q){
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if(left!=null && right!=null){
+            return root;
+        }
+        else if(left == null){
+            return right;
+        }
+        else{
+            return left;
+        }
     }
 }

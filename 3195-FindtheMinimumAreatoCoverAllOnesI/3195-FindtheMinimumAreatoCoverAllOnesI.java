@@ -1,25 +1,28 @@
-// Last updated: 20/11/2025, 3:09:57 pm
+// Last updated: 21/11/2025, 11:42:33 am
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    public int minimumArea(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length; 
-        int left = n; 
-        int right = 0;
-        int top = m;
-        int down = 0;
-        for(int i = 0; i<grid.length; i++){
-            for(int j = 0; j<grid[0].length; j++){
-                if(grid[i][j] == 1){
-                    top = Math.min(top, i);
-                    down = Math.max(down, i);
-                    left  = Math.min(left, j);
-                    right = Math.max(right, j);
-                }
-                
-            }
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p==null && q==null){
+            return true;
         }
-        int res = (right-left+1)*(down-top+1);
-        return res;
+        if(p==null || q== null || p.val != q.val){
+            return false;
+        }
+        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
 
     }
 }

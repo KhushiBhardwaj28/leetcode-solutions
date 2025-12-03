@@ -1,26 +1,27 @@
-// Last updated: 3/12/2025, 10:44:20 pm
+// Last updated: 4/12/2025, 12:02:17 am
 1class Solution {
-2    public int numDistinct(String s, String t) {
-3        int n = s.length();
-4        int m = t.length();
-5        long[][] dp = new long[n+1][m+1];
-6
-7        for (int i = 0; i <= n; i++) dp[i][0] = 1;
-8
-9        for (int i = 1; i <= n; i++) {
-10            for (int j = 1; j <= m; j++) {
-11                if (s.charAt(i-1) == t.charAt(j-1)) {
-12                    
-13                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
-14                } else {
-15                    
-16                    dp[i][j] = dp[i-1][j];
-17                }
-18            }
+2    public int minDistance(String word1, String word2) {
+3        int n = word1.length();
+4        int m = word2.length();
+5        int[][] dp = new int[n][m];
+6        for(int[] row: dp){
+7            Arrays.fill(row, -1);
+8        }
+9        return f(n-1, m-1, word1,word2, dp);
+10    }
+11    public static int f(int i, int j, String s1, String s2, int[][] dp){
+12        if(i<0){
+13            return j+1;
+14        }
+15        if(j<0) return i+1;
+16        if(dp[i][j]!=-1) return dp[i][j];
+17        if(s1.charAt(i) == s2.charAt(j)){
+18            return dp[i][j] = 0+f(i-1, j-1, s1, s2, dp);
 19        }
-20
-21        
-22        return (int) dp[n][m];
-23    }
-24     
-25}
+20        
+21            return dp[i][j] = 1+ Math.min(f(i-1, j, s1, s2, dp), Math.min(f(i, j-1, s1, s2, dp), f(i-1, j-1, s1, s2, dp)));
+22        
+23        
+24
+25    }
+26}

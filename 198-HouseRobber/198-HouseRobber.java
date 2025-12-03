@@ -1,22 +1,19 @@
-// Last updated: 3/9/2025, 12:37:32 pm
-class Solution {
-    public int lengthOfLIS(int[] nums) {
-        int n = nums.length;
-        int[] dp = new int[n];
-        Arrays.fill(dp, 1);
-        for(int i = 0; i < n; i++) {
-            for(int j = i-1; j >= 0; j--) {
-                if(nums[i] > nums[j]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1); 
-                }
-            }
-        }
-        // int res = 0; 
-        // for(int x : dp) {
-        //     res = Math.max(res, x);
-        // }
-        // return res;
-
-        return Arrays.stream(dp).max().getAsInt();
-    }
-}
+// Last updated: 3/12/2025, 5:31:17 pm
+1class Solution {
+2    public int rob(int[] nums) {
+3        return f(nums);
+4    }
+5    public static int f(int[] nums){
+6        int[] dp = new int[nums.length+1];
+7        dp[0] = nums[0];
+8        for(int i = 1; i<nums.length; i++){
+9            int pick = nums[i];
+10            if(i>1){
+11                pick+=dp[i-2];
+12            }
+13            int notPick = 0+dp[i-1];
+14            dp[i] = Math.max(pick, notPick);
+15        }
+16        return dp[nums.length-1];
+17    }
+18 }

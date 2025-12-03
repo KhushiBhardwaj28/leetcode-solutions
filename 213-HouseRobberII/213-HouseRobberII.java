@@ -1,4 +1,4 @@
-// Last updated: 3/12/2025, 6:06:09 pm
+// Last updated: 3/12/2025, 6:06:25 pm
 1class Solution {
 2    public int minCostClimbingStairs(int[] cost) {
 3        int[] dp = new int[cost.length];

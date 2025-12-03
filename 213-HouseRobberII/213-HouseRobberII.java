@@ -1,22 +1,26 @@
-// Last updated: 3/12/2025, 9:48:02 pm
+// Last updated: 3/12/2025, 10:44:20 pm
 1class Solution {
-2    public int maxUncrossedLines(int[] nums1, int[] nums2) {
-3        int n = nums1.length;
-4        int m = nums2.length;
-5        int[][] dp = new int[n][m];
-6        for(int[] row: dp){
-7            Arrays.fill(row,-1);
+2    public int numDistinct(String s, String t) {
+3        int n = s.length();
+4        int m = t.length();
+5        long[][] dp = new long[n+1][m+1];
+6
+7        for (int i = 0; i <= n; i++) dp[i][0] = 1;
 8
-9        }
-10        return f(n-1,m-1, nums1, nums2, dp);
-11    }
-12    public static int f(int idx1, int idx2, int[] s1, int[] s2, int[][] dp){
-13        if(idx1<0 || idx2<0) return 0;
-14        if(dp[idx1][idx2]!=-1) return dp[idx1][idx2];
-15        if(s1[idx1] == s2[idx2]){
-16            return dp[idx1][idx2] = 1+ f(idx1-1, idx2-1, s1, s2, dp);
-17        }
-18        dp[idx1][idx2] = 0+ Math.max(f(idx1-1, idx2, s1, s2, dp), f(idx1, idx2-1, s1, s2, dp));
-19        return dp[idx1][idx2];
-20    }
-21}
+9        for (int i = 1; i <= n; i++) {
+10            for (int j = 1; j <= m; j++) {
+11                if (s.charAt(i-1) == t.charAt(j-1)) {
+12                    
+13                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+14                } else {
+15                    
+16                    dp[i][j] = dp[i-1][j];
+17                }
+18            }
+19        }
+20
+21        
+22        return (int) dp[n][m];
+23    }
+24     
+25}

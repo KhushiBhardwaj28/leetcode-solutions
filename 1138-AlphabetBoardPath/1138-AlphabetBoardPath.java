@@ -1,36 +1,32 @@
-// Last updated: 22/12/2025, 2:33:36 pm
+// Last updated: 22/12/2025, 2:43:01 pm
 1class Solution {
-2    public String alphabetBoardPath(String target) {
-3        StringBuilder sb = new StringBuilder();
-4
-5        int currR = 0, currC = 0;
-6
-7        for (char ch : target.toCharArray()) {
-8            int targetR = (ch - 'a') / 5;
-9            int targetC = (ch - 'a') % 5;
-10            //up
-11            while (currR > targetR) {
-12                sb.append('U');
-13                currR--;
+2    public String findReplaceString(String s, int[] indices, String[] sources, String[] targets) {
+3        int n = s.length();
+4        int[] match = new int[n];
+5
+6        for(int i = 0; i<n; i++){
+7            match[i] = -1;
+8        }
+9        for(int i = 0; i<indices.length; i++){
+10            int idx = indices[i];
+11            String src = sources[i];
+12            if(s.startsWith(src, idx)){
+13                match[idx] = i;
 14            }
-15            //left
-16            while (currC > targetC) {
-17                sb.append('L');
-18                currC--;
-19            }
-20            //down
-21            while (currR < targetR) {
-22                sb.append('D');
-23                currR++;
-24            }
-25            //right
-26            while (currC< targetC) {
-27                sb.append('R');
-28                currC++;
-29            }
-30            sb.append('!');
-31        }
-32
-33        return sb.toString();
-34    }
-35}
+15        }
+16        StringBuilder result = new StringBuilder();
+17        int i = 0; 
+18
+19        while(i<n){
+20            if(match[i] != -1){
+21                int repIdx = match[i];
+22                result.append(targets[repIdx]);
+23                i+= sources[repIdx].length();
+24            }else{
+25                result.append(s.charAt(i));
+26                i++;
+27            }
+28        }
+29        return result.toString();
+30    }
+31}

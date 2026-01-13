@@ -1,14 +1,13 @@
-// Last updated: 13/1/2026, 3:23:45 pm
+// Last updated: 13/1/2026, 3:25:18 pm
 1class Solution {
 2    public int strStr(String haystack, String needle) {
-3        int i = 0;
-4       
-5        while(i <= haystack.length() - needle.length()){
-6            if(needle.equals(haystack.substring(i,i+needle.length()))){
-7                return i;
-8            }
-9            i++;        
-10        }
-11        return -1;
-12    }
-13}
+3       
+4        for(int i = 0; i <= haystack.length() - needle.length(); i++){
+5            if(needle.equals(haystack.substring(i,i+needle.length()))){
+6                return i;
+7            }
+8                   
+9        }
+10        return -1;
+11    }
+12}

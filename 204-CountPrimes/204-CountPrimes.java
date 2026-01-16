@@ -1,26 +1,20 @@
-// Last updated: 16/1/2026, 10:49:30 am
+// Last updated: 16/1/2026, 11:05:55 am
 1class Solution {
-2    public int countPrimes(int n) {
-3        if(n<2){
-4            return 0;
-5        }
-6        boolean[] isPrime = new boolean[n];
-7        for(int i = 2; i<n; i++){
-8            isPrime[i] = true;
-9        }
-10        for(int i = 2; i*i<n; i++){
-11            for(int j = i*i; j<n; j+=i){
-12                if(isPrime[j]){
-13                    isPrime[j] = false;
-14                }
-15            } 
+2    public int firstMissingPositive(int[] nums) {
+3        int n = nums.length;
+4        for(int i = 0; i<n; i++){
+5            while(nums[i]>=1 && nums[i]<=n && nums[nums[i]-1] != nums[i]){
+6                int correctPos = nums[i]-1;
+7                int temp = nums[i];
+8                nums[i] = nums[correctPos];
+9                nums[correctPos] = temp;
+10            }
+11        }
+12        for(int i = 0; i<n; i++){
+13            if(nums[i] != i+1){
+14                return i+1;
+15            }
 16        }
-17        int count = 0;
-18        for(int i = 2; i<n; i++){
-19            if(isPrime[i]){
-20                count++;
-21            }
-22        }
-23        return count;
-24    }
-25}
+17        return n+1;
+18    }
+19}

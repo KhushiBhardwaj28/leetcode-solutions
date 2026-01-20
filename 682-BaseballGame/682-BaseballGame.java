@@ -1,26 +1,26 @@
-// Last updated: 20/1/2026, 2:42:40 pm
+// Last updated: 20/1/2026, 3:38:13 pm
 1class Solution {
-2    public int calPoints(String[] operations) {
-3        Stack<Integer> st = new Stack<>();
-4        for(String x : operations){
-5            if(x.equals("C")){
-6                st.pop();
-7                
-8            }else if(x.equals("D")){
-9                st.push(2*st.peek());
-10            }else if(x.equals("+")){
-11                int last = st.pop();
-12                int secondLast = st.peek();
-13                st.push(last);
-14                st.push(last+secondLast);
-15            }else{
-16                st.push(Integer.parseInt(x));
+2    public String removeOuterParentheses(String s) {
+3        int count = 0;
+4        StringBuilder sb = new StringBuilder();
+5        for(char c: s.toCharArray()){
+6            if(c == '('){
+7                if(count>0){
+8                    sb.append(c);
+9                }
+10                count++;
+11            }else{
+12                count--;
+13                if(count>0){
+14                    sb.append(c);
+15                }
+16                 
 17            }
-18        }
-19        int sum = 0;
-20        while(!st.isEmpty()){
-21            sum+= st.pop();
-22        }
-23        return sum;
+18           
+19            
+20        }
+21        return sb.toString();
+22
+23
 24    }
 25}

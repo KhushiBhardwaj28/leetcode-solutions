@@ -1,14 +1,33 @@
-// Last updated: 21/1/2026, 12:14:12 pm
+// Last updated: 21/1/2026, 12:37:40 pm
 1class Solution {
-2    public int getXORSum(int[] arr1, int[] arr2) {
-3        int xor1 = 0, xor2 = 0;
-4        for(int x: arr1){
-5            xor1^=x;
-6        }
-7        for(int x: arr2){
-8            xor2^=x;
-9        }
-10        return xor1 & xor2;
-11        
-12    }
-13}
+2    public int minimizeXor(int num1, int num2) {
+3        int set_bit = 0;
+4        while(num2>0){
+5            num2 = (num2 & (num2 - 1));
+6            set_bit++;
+7        }
+8        int x = 0;
+9        for(int i = 30; i>=0; i--){
+10            int mask = (1<<i);
+11            if((num1 & mask) != 0){
+12                x |=mask;
+13                set_bit--;
+14                if(set_bit == 0){
+15                    return x;
+16                }
+17            }
+18        }
+19        for(int i = 0; i<=30; i++){
+20            int mask = (1<<i);
+21            if((num1 & mask) == 0){
+22                x|=mask;
+23                set_bit--;
+24                if(set_bit == 0){
+25                    return x;
+26                }
+27            }
+28            
+29        }
+30        return x;
+31    }
+32}

@@ -1,24 +1,42 @@
-// Last updated: 9/2/2026, 3:47:37 pm
-1class Solution {
-2    public int[] cycleLengthQueries(int n, int[][] queries) {
-3        int m = queries.length;
-4        int[] ans = new int[m];
-5        for(int i = 0; i<m; i++){
-6            ans[i] = cycle(queries[i][0], queries[i][1]);
-7        }
-8        return ans;
-9
-10    }
-11    public static int cycle(int a, int b){
-12        int c = 0;
-13        while(a!=b){
-14           if(a >b){
-15               a = a/2; 
-16           }else{
-17               b = b/2;
-18           }
-19           c++;
-20        }
-21        return c+1;
-22    }
-23}
+// Last updated: 10/2/2026, 3:18:58 pm
+1/**
+2 * Definition for a binary tree node.
+3 * public class TreeNode {
+4 *     int val;
+5 *     TreeNode left;
+6 *     TreeNode right;
+7 *     TreeNode() {}
+8 *     TreeNode(int val) { this.val = val; }
+9 *     TreeNode(int val, TreeNode left, TreeNode right) {
+10 *         this.val = val;
+11 *         this.left = left;
+12 *         this.right = right;
+13 *     }
+14 * }
+15 */
+16class Solution {
+17    long ans = 0;
+18    int MOD = 1000000007;
+19    public int maxProduct(TreeNode root) {
+20        int totalSum = sum(root);
+21        helper(root, totalSum);
+22        return (int)(ans % MOD);
+23        
+24    }
+25    public void helper(TreeNode root, int totalSum){
+26        if(root == null){
+27            return;
+28        }
+29        int x = totalSum - root.val;
+30        ans = Math.max(ans, (long) x*root.val);
+31        helper(root.left, totalSum);
+32        helper(root.right, totalSum);
+33    }
+34    public int sum(TreeNode root){
+35        if(root == null){
+36            return 0;
+37        }
+38        root.val = root.val + sum(root.left) + sum(root.right);
+39        return root.val;
+40    }
+41}

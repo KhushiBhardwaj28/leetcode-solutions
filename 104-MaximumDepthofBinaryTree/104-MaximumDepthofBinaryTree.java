@@ -1,4 +1,4 @@
-// Last updated: 16/2/2026, 2:24:26 pm
+// Last updated: 16/2/2026, 2:34:31 pm
 1/**
 2 * Definition for a binary tree node.
 3 * public class TreeNode {
@@ -15,23 +15,21 @@
 14 * }
 15 */
 16class Solution {
-17    public boolean isBalanced(TreeNode root) {
-18        return helper(root) != -1; 
-19
-20    }
-21    public int helper(TreeNode root){
-22        if(root == null){
-23            return 0;
-24        }
-25        int lh = helper(root.left);
-26        if(lh == -1){
-27            return -1;
-28        }
-29        int rh = helper(root.right);
-30        if(rh == -1){
-31            return -1;
-32        }
-33        if(Math.abs(lh-rh)>1) return -1;
-34        return Math.max(lh, rh)+1;
-35    }
-36}
+17    public boolean isSymmetric(TreeNode root) {
+18        return Symmetric(root.left, root.right);
+19    }
+20    public boolean Symmetric(TreeNode root1, TreeNode root2){
+21        if(root1 == null && root2 == null){
+22            return true;
+23        }
+24        if(root1 == null || root2 == null){
+25            return false;
+26        }
+27        if(root1.val != root2.val){
+28            return false;
+29        }
+30        boolean left = Symmetric(root1.left, root2.right);
+31        boolean right = Symmetric(root1.right, root2.left);
+32        return left && right;
+33    }
+34}

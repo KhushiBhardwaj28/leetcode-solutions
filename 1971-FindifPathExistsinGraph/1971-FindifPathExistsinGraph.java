@@ -1,4 +1,4 @@
-// Last updated: 24/2/2026, 10:25:46 am
+// Last updated: 24/2/2026, 10:33:52 am
 1class Solution {
 2    public boolean validPath(int n, int[][] edges, int source, int destination) {
 3        HashMap<Integer, List<Integer>> map = new HashMap<>();
